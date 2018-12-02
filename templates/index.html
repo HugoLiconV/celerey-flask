@@ -1,18 +1,44 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="column column-50">
-    <h2>Get Tweets</h2>
-    <label for="hashtag">Hashtag</label>
-    <input id="hashtag" name="hashtag" type="text"/>
-    <p>
-        Num of tweets:
-        <input id="tweetsSlider" type="range" step="100" min="1000" max="15000" value="5000"/>
-        <span id="tweets">5000</span>
-    </p>
-    <button id="start-bg-job" onclick="getTweets()">Get tweets</button>
+<div class="row">
+    <div class="column column-50">
+        <h2>Get Tweets</h2>
+        <label for="hashtag">Hashtag</label>
+        <input id="hashtag" name="hashtag" type="text"/>
+        <p>
+            Num of tweets:
+            <input id="tweetsSlider" type="range" step="100" min="1000" max="15000" value="5000"/>
+            <span id="tweets">5000</span>
+        </p>
+        <button id="start-bg-job">Get tweets</button>
+    </div>
+
+    <div class="column column-50">
+        <h2>Generate Text</h2>
+        <label for="textInput">seed text:</label>
+        <input id="textInput" name="hashtag" type="text" value="The meaning of life is"/>
+        <div>
+            <p>
+                length:
+                <input id="lenSlider" type="range" min="10" max="500" value="100"/>
+                <span id="length">100</span>
+            </p>
+            <p>
+                temperature:
+                <input id="tempSlider" type="range" min="0" max="1" step="0.01"/>
+                <span id="temperature">0.5</span>
+            </p>
+            <p id="status">Loading Model</p>
+            <button id="generate">generate</button>
+            <p id="result"></p>
+        </div>
+    </div>
 </div>
-<div class="column column-50">
-    <h2>Status</h2>
-    <div id="progress"></div>
+
+<div class="row">
+    <div class="column">
+        <h2>Status</h2>
+        <div id="progress"></div>
+    </div>
 </div>
 {% endblock %}

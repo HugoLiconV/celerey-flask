@@ -12,34 +12,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
 })
 
-async function getTweets() {
-    axios.post('http://localhost:5000/get-tweets', {
-        hashtag: hashtag.value,
-        num_tweets: tweets.innerText
-    }).then(function (response) {
-        console.log(response);
-    }).catch(function (error) {
-        console.log(error);
-    });
-    // const body = JSON.stringify({
-    //     hashtag: hashtag.value,
-    //     num_tweets: tweets.innerText
-    // })
-    //
-    // console.log(body)
-    // const rawResponse = await fetch('http://localhost:5000/get-tweets', {
-    //     mode: 'no-cors',
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         acc
-    //     },
-    //     body
-    // })
-    // const content = await rawResponse.json();
-    // console.log(content)
-    // return false
-}
+// async function getTweets() {
+//     axios.post('/get-tweets', {
+//         hashtag: hashtag.value,
+//         num_tweets: tweets.innerText
+//     }).then(function (response) {
+//         console.log(response);
+//     }).catch(function (error) {
+//         console.log(error);
+//     });
+//     // const body = JSON.stringify({
+//     //     hashtag: hashtag.value,
+//     //     num_tweets: tweets.innerText
+//     // })
+//     //
+//     // console.log(body)
+//     // const rawResponse = await fetch('http://localhost:5000/get-tweets', {
+//     //     mode: 'no-cors',
+//     //     method: 'POST',
+//     //     headers: {
+//     //         'Content-Type': 'application/json',
+//     //         acc
+//     //     },
+//     //     body
+//     // })
+//     // const content = await rawResponse.json();
+//     // console.log(content)
+//     // return false
+// }
 
 // tweetsSlider.oninput = function() {
 //     tweets.innerHTML = this.value
@@ -74,7 +74,13 @@ function start_long_task() {
     // send ajax POST request to start background job
     $.ajax({
         type: 'POST',
-        url: '/longtask',
+        url: '/get-tweets',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            hashtag: hashtag.value,
+            num_tweets: tweets.innerText
+        }),
         success: function (data, status, request) {
             status_url = request.getResponseHeader('Location');
             update_progress(status_url, nanobar, div[0]);
@@ -96,7 +102,7 @@ function update_progress(status_url, nanobar, status_div) {
         if (data['state'] != 'PENDING' && data['state'] != 'PROGRESS') {
             if ('result' in data) {
                 // show result
-                $(status_div.childNodes[3]).text('Result: ' + data['result']);
+                $(status_div.childNodes[3]).text(`Result: ${data['result']} tweets downloaded`);
             }
             else {
                 // something unexpected happened

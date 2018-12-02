@@ -23,7 +23,7 @@ def fetch_tweets(searchQuery, celery, num_tweets=1000):
     # searchQuery = '#CaliforniaFires'  # this is what we're searching for
     # maxTweets = 100  # Some arbitrary large number
     tweetsPerQry = 100  # this is the max the API permits
-    fName = 'tweets.txt'  # We'll store the tweets in a text file.
+    fName = 'input.txt'  # We'll store the tweets in a text file.
     #
     # # If results from a specific ID onwards are reqd, set since_id to that ID.
     # # else default to no lower limit, go as far back as API allows
@@ -74,4 +74,4 @@ def fetch_tweets(searchQuery, celery, num_tweets=1000):
                 break
 
     print("Downloaded {0} tweets, Saved to {1}".format(tweetCount, fName))
-    return {'current': tweetCount, 'total': num_tweets, 'status': 'Task completed!'}
+    return {'current': tweetCount, 'total': num_tweets, 'status': 'Task completed!', 'result': tweetCount}
