@@ -1,30 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Twitter IA</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.min.css"/>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.min.js"></script>-->
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/addons/p5.dom.min.js"></script>-->
-    <!--<script src="https://unpkg.com/ml5@0.1.2/dist/ml5.min.js" type="text/javascript"></script>-->
-</head>
-<body>
-<h1>Twitter IA</h1>
-<h2>Tweet Generator using LSTM</h2>
-<div class="row">
-    <div class="column column-50">
-        <label for="hashtag">Hashtag</label>
-        <input id="hashtag" name="hashtag" type="text"/>
-        <p>
-            Num of tweets:
-            <input id="tweetsSlider" type="range" step="100" min="1000" max="15000" value="5000"/>
-            <span id="tweets">5000</span>
-        </p>
-        <button onclick="getTweets()">Get tweets</button>
-    </div>
+{% extends "base.html" %}
+{% block content %}
+<div class="column column-50">
+    <h2>Get Tweets</h2>
+    <label for="hashtag">Hashtag</label>
+    <input id="hashtag" name="hashtag" type="text"/>
+    <p>
+        Num of tweets:
+        <input id="tweetsSlider" type="range" step="100" min="1000" max="15000" value="5000"/>
+        <span id="tweets">5000</span>
+    </p>
+    <button id="start-bg-job" onclick="getTweets()">Get tweets</button>
 </div>
-<script type="text/javascript" src="../static/app.js"></script>
-</body>
-</html>
+<div class="column column-50">
+    <h2>Status</h2>
+    <div id="progress"></div>
+</div>
+{% endblock %}

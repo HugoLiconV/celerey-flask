@@ -33,13 +33,12 @@ def index():
 
 @app.route('/get-tweets', methods=['POST'])
 def get_tweets():
-    if request.method == 'POST':
-        results = request.get_json()
-        hashtag = results['hashtag']
-        num_tweets = int(results['num_tweets'])
-        task = get_tweets_from_api.delay(hashtag=hashtag, num_tweets=num_tweets)
-        print(task.id)
-        return jsonify(taskid=task.id), 202
+    results = request.get_json()
+    hashtag = results['hashtag']
+    num_tweets = int(results['num_tweets'])
+    task = get_tweets_from_api.delay(hashtag=hashtag, num_tweets=num_tweets)
+    return jsonify(taskid=task.id), 202, {'Location': url_for('taskstatus',
+                                                              task_id=task.id)}
 
 
 @celery.task(bind=True)
@@ -49,7 +48,7 @@ def get_tweets_from_api(self, hashtag, num_tweets):
 
 @app.route('/longtask', methods=['POST'])
 def longtask():
-    task = long_task.apply_async();
+    task = long_task.apply_async()
     print(task.id)
     return jsonify({}), 202, {'Location': url_for('taskstatus',
                                                   task_id=task.id)}
