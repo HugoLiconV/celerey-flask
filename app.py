@@ -1,12 +1,14 @@
 import random
 import time
 # from twitter-api import fetch_tweets
+from flask_cors import CORS
 from flask import Flask, request, url_for, jsonify, render_template
 from celery import Celery
 from twitter import fetch_tweets
 from tasks import make_celery
 
 app = Flask(__name__)
+CORS(app)
 app.config['CELERY_BROKER_URL'] = 'redis://localhost:6379/0'
 app.config['CELERY_RESULT_BACKEND'] = 'redis://localhost:6379/0'
 
