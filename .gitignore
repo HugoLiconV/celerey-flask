@@ -3,3 +3,4 @@ venv/
 secret.py
 *.pyc
 *.txt
+static/data
